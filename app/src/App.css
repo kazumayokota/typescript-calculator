@@ -1,0 +1,39 @@
+.app-shell {
+  display: grid;
+  min-height: 100vh;
+  box-sizing: border-box;
+  place-items: center;
+  align-content: center;
+  gap: 1.5rem;
+  padding: clamp(1rem, 4vw, 3rem);
+}
+
+.app-shell__heading {
+  text-align: center;
+}
+
+.app-shell__heading h1 {
+  margin: 0.25rem 0 0.4rem;
+  color: #0f172a;
+  font-size: clamp(2rem, 7vw, 3rem);
+  letter-spacing: -0.04em;
+}
+
+.app-shell__heading p,
+.app-shell__note {
+  margin: 0;
+  color: #64748b;
+}
+
+.app-shell__heading .app-shell__eyebrow {
+  color: #2563eb;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.app-shell__note {
+  max-width: 35rem;
+  font-size: 0.875rem;
+  text-align: center;
+}

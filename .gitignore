@@ -1,0 +1,5 @@
+# Local source document: keep it on this machine and out of Git.
+/document/【詳細設計書】計算機.xlsx
+
+# Temporary files created while the workbook is open in Excel.
+/document/~$*.xlsx
