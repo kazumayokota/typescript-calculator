@@ -10,6 +10,8 @@ export type Digit =
   | "8"
   | "9";
 
+export type CalculatorInput = Digit | ".";
+
 export type Operator = "add" | "subtract" | "multiply" | "divide";
 
 export type OperatorSymbol = "+" | "-" | "×" | "÷";

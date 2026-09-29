@@ -1,10 +1,43 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  initClear,
+  keisanLogic,
   objInitialCalculatorState,
+  operatorInsert,
   reduceCalculatorState,
+  spotClear,
 } from "./calculatorReducer.ts";
 import type { CalculatorState } from "./types.ts";
+
+describe("detailed-design common functions", (): void => {
+  it("initClearで計算1と計算2をクリアする", (): void => {
+    const objState: CalculatorState = { strDisplay1: "12+", strDisplay2: "3" };
+
+    expect(initClear(objState)).toEqual(objInitialCalculatorState);
+  });
+
+  it("spotClearで計算2だけをクリアする", (): void => {
+    const objState: CalculatorState = { strDisplay1: "12+", strDisplay2: "3" };
+
+    expect(spotClear(objState)).toEqual({ strDisplay1: "12+", strDisplay2: "" });
+  });
+
+  it("operatorInsertで演算子を入力する", (): void => {
+    const objState: CalculatorState = { strDisplay1: "", strDisplay2: "12" };
+
+    expect(operatorInsert(objState, "add")).toEqual({
+      strDisplay1: "12+",
+      strDisplay2: "",
+    });
+  });
+
+  it("keisanLogicで計算結果を表示する", (): void => {
+    const objState: CalculatorState = { strDisplay1: "5×", strDisplay2: "4" };
+
+    expect(keisanLogic(objState)).toEqual({ strDisplay1: "", strDisplay2: "20" });
+  });
+});
 
 describe("calculator reducer", (): void => {
   it("S0で演算子を入力しても状態を維持する", (): void => {

@@ -1,6 +1,6 @@
 import Decimal from "decimal.js";
 
-import type { Digit, Operator, OperatorSymbol } from "./types.ts";
+import type { CalculatorInput, Operator, OperatorSymbol } from "./types.ts";
 
 const intMaximumDecimalPlaces = 15;
 const intMinimumCalculationPrecision = 40;
@@ -18,20 +18,23 @@ export type ParsedDisplay1 = Readonly<{
   strOperator: Operator;
 }>;
 
-export function appendDigit(strCurrentValue: string, strDigit: Digit): string {
+export function intInsert(
+  strCurrentValue: string,
+  strInputValue: CalculatorInput,
+): string {
+  if (strInputValue === ".") {
+    if (strCurrentValue === "" || strCurrentValue.includes(".")) {
+      return strCurrentValue;
+    }
+
+    return `${strCurrentValue}.`;
+  }
+
   if (strCurrentValue === "" || strCurrentValue === "0") {
-    return strDigit;
+    return strInputValue;
   }
 
-  return `${strCurrentValue}${strDigit}`;
-}
-
-export function appendDecimalPoint(strCurrentValue: string): string {
-  if (strCurrentValue === "" || strCurrentValue.includes(".")) {
-    return strCurrentValue;
-  }
-
-  return `${strCurrentValue}.`;
+  return `${strCurrentValue}${strInputValue}`;
 }
 
 export function getOperatorSymbol(strOperator: Operator): OperatorSymbol {

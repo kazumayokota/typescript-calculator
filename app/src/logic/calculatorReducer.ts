@@ -1,8 +1,7 @@
 import {
-  appendDecimalPoint,
-  appendDigit,
   calculateResult,
   getOperatorSymbol,
+  intInsert,
   parseDisplay1,
 } from "./calculator.ts";
 import type {
@@ -24,11 +23,11 @@ export function reduceCalculatorState(
     case "digitInput": {
       return {
         ...objState,
-        strDisplay2: appendDigit(objState.strDisplay2, objAction.strDigit),
+        strDisplay2: intInsert(objState.strDisplay2, objAction.strDigit),
       };
     }
     case "decimalPointInput": {
-      const strNextDisplay2 = appendDecimalPoint(objState.strDisplay2);
+      const strNextDisplay2 = intInsert(objState.strDisplay2, ".");
 
       if (strNextDisplay2 === objState.strDisplay2) {
         return objState;
@@ -40,27 +39,16 @@ export function reduceCalculatorState(
       };
     }
     case "operatorInput": {
-      return applyOperator(objState, objAction.strOperator);
+      return operatorInsert(objState, objAction.strOperator);
     }
     case "calculate": {
-      return calculateState(objState);
+      return keisanLogic(objState);
     }
     case "clearAll": {
-      if (objState.strDisplay1 === "" && objState.strDisplay2 === "") {
-        return objState;
-      }
-
-      return objInitialCalculatorState;
+      return initClear(objState);
     }
     case "clearEntry": {
-      if (objState.strDisplay2 === "") {
-        return objState;
-      }
-
-      return {
-        ...objState,
-        strDisplay2: "",
-      };
+      return spotClear(objState);
     }
     default: {
       return assertNever(objAction);
@@ -68,7 +56,26 @@ export function reduceCalculatorState(
   }
 }
 
-function applyOperator(
+export function initClear(objState: CalculatorState): CalculatorState {
+  if (objState.strDisplay1 === "" && objState.strDisplay2 === "") {
+    return objState;
+  }
+
+  return objInitialCalculatorState;
+}
+
+export function spotClear(objState: CalculatorState): CalculatorState {
+  if (objState.strDisplay2 === "") {
+    return objState;
+  }
+
+  return {
+    ...objState,
+    strDisplay2: "",
+  };
+}
+
+export function operatorInsert(
   objState: CalculatorState,
   strOperator: Operator,
 ): CalculatorState {
@@ -96,7 +103,7 @@ function applyOperator(
     };
   }
 
-  const objCalculatedState = calculateState(objState);
+  const objCalculatedState = keisanLogic(objState);
 
   return {
     strDisplay1: `${objCalculatedState.strDisplay2}${strOperatorSymbol}`,
@@ -104,7 +111,7 @@ function applyOperator(
   };
 }
 
-function calculateState(objState: CalculatorState): CalculatorState {
+export function keisanLogic(objState: CalculatorState): CalculatorState {
   if (objState.strDisplay1 === "" || objState.strDisplay2 === "") {
     return objState;
   }

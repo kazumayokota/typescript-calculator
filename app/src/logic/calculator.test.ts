@@ -2,25 +2,24 @@ import Decimal from "decimal.js";
 import { describe, expect, it } from "vitest";
 
 import {
-  appendDecimalPoint,
-  appendDigit,
   calculateResult,
   formatCalculationResult,
   getOperatorSymbol,
+  intInsert,
   parseDisplay1,
 } from "./calculator.ts";
 
 describe("calculator common logic", (): void => {
   it("数字を設計書どおりに追加する", (): void => {
-    expect(appendDigit("", "5")).toBe("5");
-    expect(appendDigit("0", "5")).toBe("5");
-    expect(appendDigit("12", "3")).toBe("123");
+    expect(intInsert("", "5")).toBe("5");
+    expect(intInsert("0", "5")).toBe("5");
+    expect(intInsert("12", "3")).toBe("123");
   });
 
   it("小数点の先頭入力と重複入力を無視する", (): void => {
-    expect(appendDecimalPoint("")).toBe("");
-    expect(appendDecimalPoint("1")).toBe("1.");
-    expect(appendDecimalPoint("1.2")).toBe("1.2");
+    expect(intInsert("", ".")).toBe("");
+    expect(intInsert("1", ".")).toBe("1.");
+    expect(intInsert("1.2", ".")).toBe("1.2");
   });
 
   it("内部演算子を表示記号へ変換する", (): void => {
