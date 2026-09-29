@@ -5,6 +5,7 @@ import type { CalculatorButtonProps } from "../logic/types.ts";
 import "./CalculatorButton.css";
 
 export function CalculatorButton({
+  strControlId,
   strLabel,
   strAccessibleName,
   strVisualKind,
@@ -19,6 +20,7 @@ export function CalculatorButton({
     <button
       aria-label={strAccessibleName}
       className={`calculator-button calculator-button--${strVisualKind}`}
+      id={strControlId}
       onClick={fnHandlePress}
       style={objButtonStyle}
       type="button"

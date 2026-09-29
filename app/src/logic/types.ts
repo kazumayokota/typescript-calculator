@@ -22,6 +22,26 @@ export type CalculatorButtonLabel =
   | "CE"
   | "=";
 
+export type CalculatorButtonControlId =
+  | "btnShosuten"
+  | "btn0"
+  | "btn1"
+  | "btn2"
+  | "btn3"
+  | "btn4"
+  | "btn5"
+  | "btn6"
+  | "btn7"
+  | "btn8"
+  | "btn9"
+  | "btnC"
+  | "btnCe"
+  | "btnLogicPlus"
+  | "btnLogicMinus"
+  | "btnLogicMultiplication"
+  | "btnLogicDivision"
+  | "btnEqual";
+
 export type CalculatorState = Readonly<{
   strDisplay1: string;
   strDisplay2: string;
@@ -41,6 +61,7 @@ export type CalculatorDisplayProps = Readonly<{
 }>;
 
 export type CalculatorButtonProps = Readonly<{
+  strControlId: CalculatorButtonControlId;
   strLabel: CalculatorButtonLabel;
   strAccessibleName: string;
   strVisualKind: "number" | "operator" | "clear" | "equals";

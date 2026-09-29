@@ -25,16 +25,36 @@ describe("Calculator UI", (): void => {
     );
 
     expect(screen.getByRole("region", { name: "計算機" })).toBeInTheDocument();
+    expect(screen.getByLabelText("計算1")).toHaveAttribute("id", "lblLogic1");
     expect(screen.getByLabelText("計算1")).toHaveTextContent("12345 +");
+    expect(screen.getByLabelText("計算2")).toHaveAttribute("id", "lblLogic2");
     expect(screen.getByLabelText("計算2")).toHaveTextContent("6789");
 
-    const arrAccessibleNames: ReadonlyArray<string> = [
-      "数字0", "数字1", "数字2", "数字3", "数字4", "数字5", "数字6", "数字7", "数字8", "数字9",
-      "小数点", "加算", "減算", "乗算", "除算", "全体クリア", "入力クリア", "計算",
+    const arrButtonDefinitions: ReadonlyArray<Readonly<{ strAccessibleName: string; strControlId: string }>> = [
+      { strAccessibleName: "数字0", strControlId: "btn0" },
+      { strAccessibleName: "数字1", strControlId: "btn1" },
+      { strAccessibleName: "数字2", strControlId: "btn2" },
+      { strAccessibleName: "数字3", strControlId: "btn3" },
+      { strAccessibleName: "数字4", strControlId: "btn4" },
+      { strAccessibleName: "数字5", strControlId: "btn5" },
+      { strAccessibleName: "数字6", strControlId: "btn6" },
+      { strAccessibleName: "数字7", strControlId: "btn7" },
+      { strAccessibleName: "数字8", strControlId: "btn8" },
+      { strAccessibleName: "数字9", strControlId: "btn9" },
+      { strAccessibleName: "小数点", strControlId: "btnShosuten" },
+      { strAccessibleName: "加算", strControlId: "btnLogicPlus" },
+      { strAccessibleName: "減算", strControlId: "btnLogicMinus" },
+      { strAccessibleName: "乗算", strControlId: "btnLogicMultiplication" },
+      { strAccessibleName: "除算", strControlId: "btnLogicDivision" },
+      { strAccessibleName: "全体クリア", strControlId: "btnC" },
+      { strAccessibleName: "入力クリア", strControlId: "btnCe" },
+      { strAccessibleName: "計算", strControlId: "btnEqual" },
     ];
 
-    for (const strAccessibleName of arrAccessibleNames) {
-      expect(screen.getByRole("button", { name: strAccessibleName })).toBeInTheDocument();
+    for (const objButtonDefinition of arrButtonDefinitions) {
+      expect(
+        screen.getByRole("button", { name: objButtonDefinition.strAccessibleName }),
+      ).toHaveAttribute("id", objButtonDefinition.strControlId);
     }
   });
 
